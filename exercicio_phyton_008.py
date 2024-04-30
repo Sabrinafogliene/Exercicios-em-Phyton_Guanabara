@@ -1,3 +1,4 @@
+#Escreva um programa que leia um valor em metros e o exiba convertido em kilômetros, hectômetros, decâmetros, decímetros, centímetros e milímetros.
 medida = float(input('Uma distância em metros: '))
 km = medida * 0.001
 hm = medida * 0.01
