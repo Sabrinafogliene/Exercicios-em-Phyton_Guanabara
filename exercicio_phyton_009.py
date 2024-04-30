@@ -1,3 +1,4 @@
+#Faça um programa que leia um número inteiro qualquer e mostre na tela a sua tabuada.
 num = int(input('Digite um número para ver sua tabuada: '))
 print(' ')
 print('-' * 7, ' TABUADA ', '-' *7)
