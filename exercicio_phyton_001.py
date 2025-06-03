@@ -4,3 +4,8 @@ print('Olá, Mundo!')
 msg = 'Olá, Mundo!'
 
 print(msg)
+
+print('Olá Mundo!!')
+
+msg = 'Olá, Mundo!!'
+print(msg)
