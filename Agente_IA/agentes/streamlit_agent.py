@@ -53,7 +53,8 @@ def obter_estruturas_tabelas():
             host=mysql_host,
             user=mysql_user,
             password=mysql_password,
-            database=mysql_db
+            database=mysql_db,
+            charset="utf8mb4"
         )
         cursor = conn.cursor()
         cursor.execute("SHOW TABLES")
@@ -73,7 +74,7 @@ def obter_estruturas_tabelas():
 # Carregar o prompt
 def carregar_prompt():
     try:
-        with open("prompts.json", "r", encoding="utf-8") as f:
+        with open("../protocolos/prompt.json", "r", encoding="utf-8") as f:
             return json.load(f)
     except Exception as e:
         st.error(f"Erro ao carregar o contexto do PROMPT: {e}")
@@ -88,17 +89,17 @@ def gerar_query_sql(pergunta, colunas):
 
     contexto = f"""
     Sistema = {prompt.get('system_name','Desconhecido')}
-    Função do Modelo = {prompt.get('model_role','')}
-    Perfil do usuário = {prompt.get('user_profile',{})}
-    Restrições = {", ".join(prompt.get('restrictions', []))}
+    Funcao do Modelo = {prompt.get('model_role','')}
+    Perfil do usuario = {prompt.get('user_profile',{})}
+    Restricoes = {", ".join(prompt.get('restrictions', []))}
 
-    Instruções adicionais para gerar SQL corretamente:
+    Instrucoes adicionais para gerar SQL corretamente:
     {instrucoes_adicionais}
 
     Base de dados:
     {json.dumps(colunas, indent=2, ensure_ascii=False)}
 
-    Pergunta do usuário:
+    Pergunta do usuario:
     {pergunta}
 
     Gere uma consulta SQL correspondente:
@@ -107,7 +108,7 @@ def gerar_query_sql(pergunta, colunas):
         response = openai.chat.completions.create(
             model="gpt-4o-mini",
             messages=[
-                {"role": "system", "content": prompt.get('model_role', "Você é um assistente de SQL")},
+                {"role": "system", "content": prompt.get('model_role', "Voce e um assistente de SQL")},
                 {"role": "user", "content": contexto}
             ],
             max_tokens=300,
